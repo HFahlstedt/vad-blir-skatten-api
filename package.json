@@ -1,0 +1,23 @@
+{
+  "name": "vad-blir-skatten-api",
+  "version": "0.0.1",
+  "description": "An api for calculate your (swedish) tax amount for a certain salary.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HFahlstedt/vad-blir-skatten-api.git"
+  },
+  "keywords": [
+    "tax",
+    "skatt"
+  ],
+  "author": "Håkan Fahlstedt",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/HFahlstedt/vad-blir-skatten-api/issues"
+  },
+  "homepage": "https://github.com/HFahlstedt/vad-blir-skatten-api#readme"
+}
