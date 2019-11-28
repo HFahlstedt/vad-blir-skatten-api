@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/HFahlstedt/vad-blir-skatten-api/issues"
   },
-  "homepage": "https://github.com/HFahlstedt/vad-blir-skatten-api#readme"
+  "homepage": "https://github.com/HFahlstedt/vad-blir-skatten-api#readme",
+  "dependencies": {
+    "axios": "^0.19.0"
+  }
 }
