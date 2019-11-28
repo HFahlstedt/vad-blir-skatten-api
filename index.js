@@ -1,8 +1,8 @@
 
 const axios = require('axios');
 
-const baseurl = 'https://skatteverket.entryscape.net/rowstore/dataset/88320397-5c32-4c16-ae79-d36d95b17b95';// +
-//require('querystring').escape('tabellnr=33&inkomst fr.o.m.=60601&år=2019');
+const BASE_URL = 'https://skatteverket.entryscape.net/rowstore/dataset/88320397-5c32-4c16-ae79-d36d95b17b95';
+const PERCENTAGE_THRESHOLD = 80000;
 
 const getData = async url => {
     try {
@@ -22,9 +22,15 @@ exports.helloHttp = async (req, res) => {
             const year = req.query.year || Date.now().year;
             const salary = req.query.salary || 0;
 
+            if (salary > PERCENTAGE_THRESHOLD) {
+
+            }
+
+
+
             const incomeMin = Math.floor(salary / 200) * 200 + 1;
 
-            const url = `${baseurl}?tabellnr=${tab}&%C3%A5r=${year}&inkomst+fr.o.m.=${incomeMin}`;
+            const url = `${BASE_URL}?tabellnr=${tab}&%C3%A5r=${year}&inkomst+fr.o.m.=${incomeMin}`;
 
             const taxAmounts = await getData(url);
 
