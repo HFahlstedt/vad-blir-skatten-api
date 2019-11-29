@@ -14,30 +14,44 @@ const getData = async url => {
     }
 }
 
-exports.helloHttp = async (req, res) => {
+exports.getTaxAmount = async (req, res) => {
     switch (req.method) {
         //case 'OPTION'
         case 'GET':
             const tab = req.query.tab || '33';
-            const year = req.query.year || Date.now().year;
+            const year = req.query.year || (new Date()).getFullYear();
             const salary = req.query.salary || 0;
 
+            let incomeMin = 0;
+
             if (salary > PERCENTAGE_THRESHOLD) {
+                const highLimits = require('./highLimits.js').limits;
 
-            }
-
-
-
-            const incomeMin = Math.floor(salary / 200) * 200 + 1;
+                for (const range of highLimits) {
+                    if (range.start <= salary && (salary < range.end || range.end == null)) {
+                        incomeMin = range.start;
+                    }
+                }
+           } else {
+            incomeMin = Math.floor(salary / 200) * 200 + 1;
+           }
 
             const url = `${BASE_URL}?tabellnr=${tab}&%C3%A5r=${year}&inkomst+fr.o.m.=${incomeMin}`;
 
             const taxAmounts = await getData(url);
 
-            const tax = parseInt(taxAmounts['kolumn 1'], 10);
-            const afterTax = parseInt(salary, 10) - tax;
+            let taxAmount = 0;
 
-            res.status(200).send({ salary, tax, afterTax });
+            if (taxAmounts['antal dgr'] === '30B') {
+                taxAmount = parseInt(taxAmounts['kolumn 1'], 10);
+            } else {
+                const percent = parseInt(taxAmounts['kolumn 1'], 10)/100;
+                taxAmount = Math.round(salary*percent);
+            }
+
+            const afterTax = parseInt(salary, 10) - taxAmount;
+
+            res.status(200).send({ salary, taxAmount, afterTax });
             break;
         default:
             res.status(405).send({ error: 'Only GET allowed' });
