@@ -18,4 +18,4 @@ jobs:
           version: '275.0.0'
           service_account_email: ${{ secrets.GCP_SA_EMAIL }}
           service_account_key: ${{ secrets.GCP_SA_KEY }}
-    - run: gcloud info
+    - run: gcloud functions deploy vad-blir-skatten --entry-point getTaxAmount --runtime nodejs10 --trigger-http
