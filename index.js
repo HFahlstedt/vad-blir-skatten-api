@@ -22,9 +22,9 @@ const getIncomeSearch = salary => {
         case salary < 10000: 
             return '^.$|^....$';
         case salary < PERCENTAGE_THRESHOLD:
-            const firstDigit = Math.floor(salary / 10000);
+            const firstDigit = Math.floor(salary / 100);
 
-            return `^[${firstDigit-1}${firstDigit}]....$`;
+            return `^(${firstDigit-2}|${firstDigit-1}|${firstDigit})..$`;
         case salary > PERCENTAGE_THRESHOLD:
             return '^[89]....$|^[1-9].....';
     }
