@@ -21,7 +21,7 @@ const getIncomeSearch = salary => {
     switch (true) {
         case salary < 10000: 
             return '^.$|^....$';
-        case salary < PERCENTAGE_THRESHOLD:
+        case salary <= PERCENTAGE_THRESHOLD:
             const firstDigit = Math.floor(salary / 100);
 
             return `^(${firstDigit-2}|${firstDigit-1}|${firstDigit})..$`;
